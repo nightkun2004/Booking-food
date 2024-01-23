@@ -1,0 +1,47 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+}
+
+.cardbooking {
+    background-color: #f8f9fa;
+    border: 1px solid #e2e2e2;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.Thank_ypu {
+    margin-bottom: 10px;
+}
+
+.name_booking,
+.number_book,
+.datebooking,
+.phone,
+.menu {
+    font-weight: bold;
+}
+
+button {
+    background-color: #4285f4;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2a5f8b;
+}

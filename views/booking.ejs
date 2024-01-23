@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Booking</title>
+  <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+  <div class="container">
+    <h2>ร้าน YayaShi</h2>
+    <h2>กรุณากรอกรายละเอียดการจอง</h2>
+    <div class="form">
+      <form action="/booking" method="post">
+        <label for="customerName">ชื่อผู้จอง:</label>
+        <input type="text" id="customerName" name="customerName" required>
+
+        <label for="phone">เบอร์โทร:</label>
+        <input type="number" id="phone" name="phone" required>
+
+        <label for="bookingDate">วันที่จอง:</label>
+        <input type="date" id="bookingDate" name="bookingDate" required>
+
+        <label for="menuSelection">เลือกเมนู:</label>
+        <select id="menuSelection" name="menuSelection">
+          <option value="ผัดไทย">ผัดไทย</option>
+          <option value="ราเมง">ราเมง</option>
+          <option value="กระเพราไข่ดาว">กระเพราไข่ดาว</option>
+          <option value="ผัดหมี">ผัดหมี</option>
+          <option value="ผัดกลัวแฟน">ผัดกลัวแฟน</option>
+          <option value="ส้มตำ">ส้มตำ</option>
+        </select>
+
+        <button type="submit">จองตอนนี้</button>
+      </form>
+      <div class="food">
+        <img src="/images/1.png" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="bg">
+    <img src="/images/bg.png" alt="">
+  </div>
+</body>
+
+</html>

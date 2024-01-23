@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/booking-detall.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>รายละเอียดการจอง</h2>
+        <div class="cardbooking">
+            <h2 class="Thank_ypu"> Thank you for booking at YayaShi </h2>
+            <p class="name_booking">ชื่อผู้จอง: <%= restaurant.name %> </p>
+            <p class="phone">เบอร์โทร: <%= restaurant.phone %> </p>
+            <p class="number_book">รหัสการจอง: <%= restaurant.foodid %> </p>
+            <p class="datebooking">วันที่จอง: <%= restaurant.bookingDate %> </p>
+            <p class="menu">เมนูที่จอง: <%= restaurant.menus %> </p>
+            <a href="/">
+                <button>
+                    ตกลง
+                </button>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>
