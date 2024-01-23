@@ -63,9 +63,9 @@ router.get('/save-as-pdf/:foodid', async (req, res) => {
         const templatePath = path.join(__dirname, 'views', 'booking-details.ejs');
         const html = await ejs.renderFile(templatePath, { restaurant });
 
-        const browser = await puppeteer.launch({ headless: true });
+        const browser = await puppeteer.launch();
         const page = await browser.newPage();
-        await page.addStyleTag({ content: 'https://booking-food.onrender.com/css/booking-detall.css' });
+        await page.addStyleTag({ content: '/css/booking-detall.css' });
 
         await page.goto('about:blank');
         await page.setContent(html, { waitUntil: 'networkidle0' });
