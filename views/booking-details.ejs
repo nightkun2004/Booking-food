@@ -13,15 +13,23 @@
         <h2>รายละเอียดการจอง</h2>
         <div class="cardbooking">
             <h2 class="Thank_ypu"> Thank you for booking at YayaShi </h2>
-            <p class="name_booking">ชื่อผู้จอง: <%= restaurant.name %> </p>
-            <p class="phone">เบอร์โทร: <%= restaurant.phone %> </p>
-            <p class="number_book">รหัสการจอง: <%= restaurant.foodid %> </p>
-            <p class="datebooking">วันที่จอง: <%= restaurant.bookingDate %> </p>
-            <p class="menu">เมนูที่จอง: <%= restaurant.menus %> </p>
+            <p class="name_booking">ชื่อผู้จอง: <%= restaurant.name %>
+            </p>
+            <p class="phone">เบอร์โทร: <%= restaurant.phone %>
+            </p>
+            <p class="number_book">รหัสการจอง: <%= restaurant.foodid %>
+            </p>
+            <p class="datebooking">วันที่จอง: <%= restaurant.bookingDate %>
+            </p>
+            <p class="menu">เมนูที่จอง: <%= restaurant.menus %>
+            </p>
             <a href="/">
                 <button>
                     ตกลง
                 </button>
+            </a>
+            <a href="/save-as-pdf/<%= restaurant.foodid %>" download="booking_details.pdf">
+                <p>บันทึก pdf</p>
             </a>
         </div>
     </div>

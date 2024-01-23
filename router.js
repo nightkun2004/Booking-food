@@ -1,15 +1,18 @@
 const express = require('express')
 const path = require('path')
+const fs = require('fs');
+const ejs = require('ejs');
 const router = express.Router()
+const puppeteer = require('puppeteer');
 const Restaurant = require('./models/restaurant')
 
 router.get('/booking', (req, res) => {
     res.render('booking');
 });
 
-router.get('/booking-detall', (req,res) => {
+router.get('/booking-detall', (req, res) => {
     res.render('booking-details')
-}) 
+})
 
 router.post('/booking', async (req, res) => {
     try {
@@ -20,31 +23,63 @@ router.post('/booking', async (req, res) => {
             shuffleArray(numbers);
             return numbers.join('');
         }
-    
+
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [array[i], array[j]] = [array[j], array[i]];
             }
         }
-    
+
         let postId = generateRandomPostId();
 
-        const foodcreate = { 
+        const foodcreate = {
             name: req.body.customerName,
             phone: req.body.phone,
             bookingDate: req.body.bookingDate,
-            menus: req.body.menuSelection, 
+            menus: req.body.menuSelection,
             foodid: postId,
-        }; 
+        };
 
         const foodsave = new Restaurant(foodcreate);
         await foodsave.save();
-        res.render('booking-details', { restaurant: foodsave } )
+        res.render('booking-details', { restaurant: foodsave })
     } catch (error) {
         console.error(error);
         res.status(500).send('internal Server error', error)
     }
 })
+
+router.get('/save-as-pdf/:foodid', async (req, res) => {
+    try {
+        const foodid = req.params.foodid;
+        const restaurant = await Restaurant.findOne({ foodid });
+
+        if (!restaurant) {
+            res.status(404).send('Booking not found');
+            return;
+        }
+
+        const templatePath = path.join(__dirname, 'views', 'booking-details.ejs');
+        const html = await ejs.renderFile(templatePath, { restaurant });
+
+        const browser = await puppeteer.launch({ headless: true });
+        const page = await browser.newPage();
+        await page.addStyleTag({ content: 'https://booking-food.onrender.com/css/booking-detall.css' });
+
+        await page.goto('about:blank');
+        await page.setContent(html, { waitUntil: 'networkidle0' });
+
+        const pdfBuffer = await page.pdf();
+        await browser.close();
+
+        res.set('Content-Type', 'application/pdf');
+        res.set('Content-Disposition', `attachment; filename=${restaurant.foodid}.pdf`);
+        res.send(pdfBuffer);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 module.exports = router
