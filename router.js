@@ -63,7 +63,7 @@ router.get('/save-as-pdf/:foodid', async (req, res) => {
       const templatePath = path.join(__dirname, 'views', 'booking-details.ejs');
       const html = await ejs.renderFile(templatePath, { restaurant });
   
-      const browser = await puppeteer.launch();
+      const browser = await puppeteer.launch({ headless: "new" });
       const page = await browser.newPage();
       await page.setContent(html);
   
