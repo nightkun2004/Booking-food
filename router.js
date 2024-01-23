@@ -52,34 +52,31 @@ router.post('/booking', async (req, res) => {
 
 router.get('/save-as-pdf/:foodid', async (req, res) => {
     try {
-        const foodid = req.params.foodid;
-        const restaurant = await Restaurant.findOne({ foodid });
-
-        if (!restaurant) {
-            res.status(404).send('Booking not found');
-            return;
-        }
-
-        const templatePath = path.join(__dirname, 'views', 'booking-details.ejs');
-        const html = await ejs.renderFile(templatePath, { restaurant });
-
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
-        await page.addStyleTag({ content: '/css/booking-detall.css' });
-
-        await page.goto('about:blank');
-        await page.setContent(html, { waitUntil: 'networkidle0' });
-
-        const pdfBuffer = await page.pdf();
-        await browser.close();
-
-        res.set('Content-Type', 'application/pdf');
-        res.set('Content-Disposition', `attachment; filename=${restaurant.foodid}.pdf`);
-        res.send(pdfBuffer);
+      const foodid = req.params.foodid;
+      const restaurant = await Restaurant.findOne({ foodid });
+  
+      if (!restaurant) {
+        res.status(404).send('Booking not found');
+        return;
+      }
+  
+      const templatePath = path.join(__dirname, 'views', 'booking-details.ejs');
+      const html = await ejs.renderFile(templatePath, { restaurant });
+  
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.setContent(html);
+  
+      const pdfBuffer = await page.pdf();
+      await browser.close();
+  
+      res.set('Content-Type', 'application/pdf');
+      res.set('Content-Disposition', `attachment; filename=${restaurant.foodid}.pdf`);
+      res.send(pdfBuffer);
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+      console.error(error);
+      res.status(500).send('Internal Server Error');
     }
-});
+  });
 
 module.exports = router
